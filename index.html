@@ -5,19 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-
-
     <style>
         .h1 {
-
             text-align: center;
-
             font-family: 'Comic Sans MS', 'Brush Script MT', fantasy;
-
-
             font-size: 2em;
             animation: riseFall 2s ease-in-out infinite;
         }
@@ -36,8 +28,6 @@
             }
         }
 
-        
-
         body {
             font-family: Arial, sans-serif;
             background-image: url(R.jpg);
@@ -49,13 +39,13 @@
             background-attachment: fixed;
         }
 
-        .app{
+        .app {
             width: 100%;
             display: flex;
             margin-top: 2rem;
         }
 
-        .bar{
+        .bar {
             margin-inline: auto;
             display: flex;
             justify-content: space-evenly;
@@ -64,14 +54,13 @@
             margin-top: 3rem;
             background-color: rgba(255, 255, 255, 0.466);
             border-radius: 1rem;
-          
         }
 
         #todo-list {
             list-style-type: none;
             padding: 0;
         }
-        
+
         #add-button {
             border: 0;
             border-radius: 0;
@@ -83,10 +72,8 @@
         }
 
         #add-button:hover {
-           
             color: black;
             background-color: white;
-            
         }
 
         #todo-list li {
@@ -105,7 +92,7 @@
             background-color: transparent;
         }
 
-        #todo-input:focus{
+        #todo-input:focus {
             outline: none;
         }
 
@@ -116,12 +103,6 @@
 
         button {
             margin-left: 10px;
-        }
-
-        #add-button {
-
-            align-self: center;
-
         }
 
         .container {
@@ -146,17 +127,13 @@
 </head>
 
 <body>
-    <div class="container"></div>
     <h1 class="h1">To-Do List</h1>
     <div class="app">
-             <div class="bar">
-                <input type="text" id="todo-input" placeholder="Enter a new task" />
-                <button id="add-button"><i class="fa-solid fa-plus"></i></button>
-
-
-             </div>
+        <div class="bar">
+            <input type="text" id="todo-input" placeholder="Enter a new task" />
+            <button id="add-button"><i class="fa-solid fa-plus"></i></button>
+        </div>
     </div>
-
     <ul id="todo-list"></ul>
 
     <script>
@@ -164,6 +141,9 @@
             const addButton = document.getElementById("add-button");
             const todoInput = document.getElementById("todo-input");
             const todoList = document.getElementById("todo-list");
+
+            // Load existing todo items from local storage
+            loadTodosFromLocalStorage();
 
             addButton.addEventListener("click", addTodoItem);
 
@@ -176,17 +156,17 @@
                     span.textContent = todoText;
 
                     const completeButton = document.createElement("button");
-                    i = document.createElement("i");
-                    i.setProperty("")
-                    completeButton.appendChild("<button></button>");
+                    completeButton.textContent = "Complete";
                     completeButton.addEventListener("click", function () {
                         li.classList.toggle("completed");
+                        saveTodosToLocalStorage(); // Update local storage
                     });
 
                     const deleteButton = document.createElement("button");
                     deleteButton.textContent = "Delete";
                     deleteButton.addEventListener("click", function () {
                         todoList.removeChild(li);
+                        saveTodosToLocalStorage(); // Update local storage
                     });
 
                     li.appendChild(span);
@@ -194,11 +174,57 @@
                     li.appendChild(deleteButton);
 
                     todoList.appendChild(li);
-
-                    todoInput.value = ""; // Clear the input field after adding
+                    saveTodosToLocalStorage(); // Save to local storage
+                    todoInput.value = ""; // Clear the input field
                 }
             }
-        }
-        )
+
+            function saveTodosToLocalStorage() {
+                const todos = [];
+                document.querySelectorAll("#todo-list li").forEach((li) => {
+                    todos.push({
+                        text: li.querySelector("span").textContent,
+                        completed: li.classList.contains("completed"),
+                    });
+                });
+                localStorage.setItem("todos", JSON.stringify(todos));
+            }
+
+            function loadTodosFromLocalStorage() {
+                const todos = JSON.parse(localStorage.getItem("todos")) || [];
+                todos.forEach((todo) => {
+                    const li = document.createElement("li");
+
+                    const span = document.createElement("span");
+                    span.textContent = todo.text;
+
+                    if (todo.completed) {
+                        li.classList.add("completed");
+                    }
+
+                    const completeButton = document.createElement("button");
+                    completeButton.textContent = "Complete";
+                    completeButton.addEventListener("click", function () {
+                        li.classList.toggle("completed");
+                        saveTodosToLocalStorage(); // Update local storage
+                    });
+
+                    const deleteButton = document.createElement("button");
+                    deleteButton.textContent = "Delete";
+                    deleteButton.addEventListener("click", function () {
+                        todoList.removeChild(li);
+                        saveTodosToLocalStorage(); // Update local storage
+                    });
+
+                    li.appendChild(span);
+                    li.appendChild(completeButton);
+                    li.appendChild(deleteButton);
+
+                    todoList.appendChild(li);
+                });
+            }
+        });
     </script>
 </body>
+
+</html>
