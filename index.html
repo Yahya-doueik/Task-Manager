@@ -1,11 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yummy</title>
+    <title>To-Do List</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+
+
+    <style>
+        .h1 {
+
+            text-align: center;
+
+            font-family: 'Comic Sans MS', 'Brush Script MT', fantasy;
+
+
+            font-size: 2em;
+            animation: riseFall 2s ease-in-out infinite;
+        }
+
+        @keyframes riseFall {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(R.jpg);
+            display: flex;
+            flex-direction: column;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .app{
+            width: 100%;
+            display: flex;
+            margin-top: 2rem;
+        }
+
+        .bar{
+            margin-inline: auto;
+            display: flex;
+            justify-content: space-evenly;
+            gap: 0;
+            width: 60%;
+            margin-top: 3rem;
+            background-color: rgba(255, 255, 255, 0.466);
+            border-radius: 1rem;
+          
+        }
+
+        #todo-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        #add-button {
+            border: 0;
+            border-radius: 0;
+            background-color: #4c49f0e1;
+            font-weight: bold;
+            color: white;
+            padding: 1rem;
+            border-radius: 0 1rem 1rem 0;
+        }
+
+        #add-button:hover {
+           
+            color: black;
+            background-color: white;
+            
+        }
+
+        #todo-list li {
+            padding: 8px;
+            background: #bdbdbd;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #todo-input {
+            margin-inline: auto;
+            width: 100%;
+            border: 0;
+            background-color: transparent;
+        }
+
+        #todo-input:focus{
+            outline: none;
+        }
+
+        #todo-list li.completed {
+            text-decoration: line-through;
+            color: darkgrey;
+        }
+
+        button {
+            margin-left: 10px;
+        }
+
+        #add-button {
+
+            align-self: center;
+
+        }
+
+        .container {
+            display: grid;
+            gap: 10px;
+        }
+
+        input {
+            padding: 8px;
+            font-size: 16px;
+            width: 200px;
+            border-radius: 12px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>HIIIIIII WORLDDDDDD!!!</h1>
+    <div class="container"></div>
+    <h1 class="h1">To-Do List</h1>
+    <div class="app">
+             <div class="bar">
+                <input type="text" id="todo-input" placeholder="Enter a new task" />
+                <button id="add-button"><i class="fa-solid fa-plus"></i></button>
+
+
+             </div>
+    </div>
+
+    <ul id="todo-list"></ul>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const addButton = document.getElementById("add-button");
+            const todoInput = document.getElementById("todo-input");
+            const todoList = document.getElementById("todo-list");
+
+            addButton.addEventListener("click", addTodoItem);
+
+            function addTodoItem() {
+                const todoText = todoInput.value.trim();
+                if (todoText !== "") {
+                    const li = document.createElement("li");
+
+                    const span = document.createElement("span");
+                    span.textContent = todoText;
+
+                    const completeButton = document.createElement("button");
+                    i = document.createElement("i");
+                    i.setProperty("")
+                    completeButton.appendChild("<i class='fa-solid fa-plus'></i>");
+                    completeButton.addEventListener("click", function () {
+                        li.classList.toggle("completed");
+                    });
+
+                    const deleteButton = document.createElement("button");
+                    deleteButton.textContent = "Delete";
+                    deleteButton.addEventListener("click", function () {
+                        todoList.removeChild(li);
+                    });
+
+                    li.appendChild(span);
+                    li.appendChild(completeButton);
+                    li.appendChild(deleteButton);
+
+                    todoList.appendChild(li);
+
+                    todoInput.value = ""; // Clear the input field after adding
+                }
+            }
+        }
+        )
+    </script>
 </body>
-</html>
