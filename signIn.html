@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(bg.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            font-family: 'Comic Sans MS', 'Brush Script MT', fantasy;
+            font-size: 2em;
+            color: white;
+            animation: riseFall 2s ease-in-out infinite;
+        }
+
+        @keyframes riseFall {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: grid;
+            gap: 1rem;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 12px;
+            border: none;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 1rem;
+            background-color: #4c49f0e1;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: white;
+            color: black;
+        }
+
+        a {
+            text-align: center;
+            font-size: 0.9rem;
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Sign In</h1>
+    <form class="form-container">
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required />
+        <button type="submit">Sign In</button>
+        <a href="signup.html">Don't have an account? Sign up</a>
+    </form>
+</body>
+
+</html>
